@@ -1,0 +1,19 @@
+{
+  "defaultParams": {
+    "room_count": {
+      "1": "",
+      "2": "",
+      "3": ""
+    },
+    "price": {
+      "min": "",
+      "max": ""
+    },
+    "currency": {
+
+    },
+    "only_host" : {
+
+    }
+  }
+}
