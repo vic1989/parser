@@ -1,23 +1,27 @@
 import logo from './logo.svg';
 import './App.css';
+import { useEffect } from "react";
 
 function App() {
+    useEffect(() => {
+        const script = document.createElement("script");
+        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCkj-aLrrFHGEI8yYPCUoekPMg99d1iF6E&callback=initMap"
+        script.async = true;
+        window.initMap = () => {
+            const map = new window.google.maps.Map(document.getElementById("map"), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 8,
+            })
+        }
+        script.onload =() => {
+
+        }
+        document.body.appendChild(script);
+    }, [])
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-          <h1>23huweriu4</h1>
+          <div id="map"/>
       </header>
     </div>
   );
