@@ -6,15 +6,12 @@ const start = async (connectCallback) => {
     let promises = []
     let normalizedPath = require("path").join(__dirname, "commands");
 
-    require("fs").readdirSync(normalizedPath).forEach(function (file) {
+    require("fs").readdirSync(normalizedPath).forEach(async (file) => {
         const runner = require("./commands/" + file);
-        promises.push(runner.parse(config))
+        await runner.parse(config)
+        mongoose.connection.close()
+        process.exit(1)
     });
-    Promise.all(promises).then(() => {
-        const s = 2;
-        //mongoose.connection.close()
-        //process.exit(1)
-    })
 }
 
 
