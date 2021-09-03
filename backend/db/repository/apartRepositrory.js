@@ -14,8 +14,7 @@ module.exports = {
     },
     find: async (filter) => {
         const apartModel = new mongoose.model('apart', apartSchema)
-        const result = await apartModel.find(filter).paginate(1, PER_PAGE_DEFAULT).exec()
-        return result
+        return await apartModel.find(filter).paginate(1, PER_PAGE_DEFAULT).exec()
     },
     delete: (filter) => {
         const apartModel = new mongoose.model('apart', apartSchema)
