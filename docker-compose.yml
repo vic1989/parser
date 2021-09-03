@@ -6,7 +6,7 @@ services:
     ports:
       - 9090:5000
     volumes:
-      - ./:/code
+      - ./:/app
   mongo:
     image: mongo
     ports:
