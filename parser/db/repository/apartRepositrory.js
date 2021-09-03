@@ -2,13 +2,15 @@ const mongoose = require('mongoose')
 const apartSchema = require('../model/apatment')
 
 module.exports = {
-    save: (apartObj) => {
+    save: async (apartObj) => {
         const apartModelObj = new mongoose.model('apart', apartSchema)
         const entity = new apartModelObj(apartObj);
-        return entity.save((err, apart) => {
-            if(err) console.log('error saving apart:' + err)
+        try {
+            const apart = await entity.save()
             return apart
-        })
+        } catch (e) {
+            console.error(e)
+        }
     },
     find: (filter) => {
         const apartModel = new mongoose.model('apart', apartSchema)

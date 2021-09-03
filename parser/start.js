@@ -1,4 +1,6 @@
 const config = require('./config/config.json')
+const mongoose = require('mongoose')
+
 const start = async (connectCallback) => {
     await connectCallback()
     let promises = []
@@ -9,7 +11,9 @@ const start = async (connectCallback) => {
         promises.push(runner.parse(config))
     });
     Promise.all(promises).then(() => {
-        process.exit(1)
+        const s = 2;
+        //mongoose.connection.close()
+        //process.exit(1)
     })
 }
 
