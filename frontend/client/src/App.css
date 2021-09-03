@@ -24,12 +24,18 @@
   color: white;
 }
 
+.map-popup-marker{
+  color: black;
+}
+.map-popup-marker a{
+  color: #5959fa;
+}
 .App-link {
   color: #61dafb;
 }
 #map{
-  width: 300px;
-  height: 300px;
+  width: 1000px;
+  height: 700px;
 }
 
 @keyframes App-logo-spin {
