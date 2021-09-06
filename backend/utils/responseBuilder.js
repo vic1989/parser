@@ -1,7 +1,9 @@
 exports.buildResponse = (response, allowedKeys) => {
     let result = []
     response.map((data) => {
-        data = data.toObject();
+            if (typeof data.toObject === 'function') {
+            data = data.toObject();
+        }
         const m = Object.keys(data)
             .filter(key => allowedKeys.includes(key))
             .reduce((obj, key) => {
