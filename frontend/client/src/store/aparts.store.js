@@ -9,7 +9,7 @@ export default class ApartsStore
     }
 
     addToFavorites(id) {
-        axios.post(config.favoriteUrk, {id: id})
+       return   axios.post(config.favoriteUrk, {id: id})
     }
 
     async loadApart(id) {

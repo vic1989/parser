@@ -13,9 +13,15 @@ module.exports = {
         const apart = await entity.save()
         return apart
     },
-    find: async (filter) => {
+    find: async (filter, columns = []) => {
         const favouriteModel = new mongoose.model('favourite', favouriteSchema)
-        const apart = await favouriteModel.find(filter).populate("apartId").paginate(1, PER_PAGE_DEFAULT).exec()
+        let apart
+        if (columns) {
+            apart = await favouriteModel.find(filter).select(columns).paginate(1, PER_PAGE_DEFAULT).exec();
+        } else {
+            apart = await favouriteModel.find(filter).populate("apartId").paginate(1, PER_PAGE_DEFAULT).exec();
+        }
+
         return apart
     },
     delete: (filter) => {
@@ -24,7 +30,7 @@ module.exports = {
             console.log(err)
         })
     },
-    update: (param, newParam, ) => {
+    update: (param, newParam,) => {
 
     },
 

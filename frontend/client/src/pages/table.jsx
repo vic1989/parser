@@ -49,13 +49,18 @@ const Table = () => {
                             history.push(`/aparts/${rowData.id}`)
                         }
                     },
-                    {
+                    rowData => ({
                         icon: 'star-border',
+                        iconProps: {
+                            color:  rowData.isFavourite ? 'secondary' : "action"
+                        },
                         tooltip: 'Добавить В Избранное',
-                        onClick: (event, rowData) => {
-                            apartsStore.addToFavorites(rowData.id)
+                        onClick: async (event, rowData) => {
+                            await apartsStore.addToFavorites(rowData.id)
+                            const aparts = await apartsStore.loadAparts()
+                            setAparts(aparts)
                         }
-                    }
+                    })
                 ]}
             />
         </div>
