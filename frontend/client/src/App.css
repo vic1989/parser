@@ -1,48 +1,98 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    padding-top: 100px;
+    background:lightblue url('./img/estate.jpg') no-repeat fixed;
+    background-size: 100% 100%;
+
 }
 
-.map-popup-marker{
-  color: black;
+.map-popup-marker {
+    color: black;
 }
-.map-popup-marker a{
-  color: #5959fa;
+
+.map-popup-marker a {
+    color: #5959fa;
 }
+
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
-#map{
-  width: 1000px;
-  height: 700px;
+
+#map {
+    width: 1000px;
+    height: 700px;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+a {
+    text-decoration: none;
+}
+
+header ul {
+    list-style-type: none;
+    display: flex;
+}
+
+header li {
+    margin-right: 15px;
+
+}
+header li a{
+    color: white!important;
+}
+
+header {
+    height: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 26px;
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,60,121,1) 35%, rgba(0,212,255,1) 100%);
+}
+
+.apart-container {
+    width: 80%;
+    margin: 0 auto;
+    color: white;
+    background-color: white;
+}
+.apart-container h1{
+    text-shadow: 4px 4px 2px rgba(150, 150, 150, 1);
+}
+.apart-wrapper{
+    color: black;
+    display: flex;
 }
