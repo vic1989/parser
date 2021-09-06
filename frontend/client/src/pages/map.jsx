@@ -6,6 +6,8 @@ const Map = () => {
     const getContent = (apart) => {
         return `<div class="map-popup-marker">${apart.location.address}
                  <br>
+                 <a target="_blank" href="/aparts/${apart.id}">Просмотреть</a>
+                 <br>
                  <a target="_blank" href="${apart.link}">Просмотреть оригинал</a>
                </div>`
     }
@@ -40,7 +42,7 @@ const Map = () => {
                                 infowindow.close()
                             }
                             infowindow = new window.google.maps.InfoWindow({
-                                content: getContent(),
+                                content: getContent(apart),
                             });
                             infowindow.open({
                                 anchor: marker,

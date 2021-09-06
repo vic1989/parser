@@ -9,6 +9,7 @@ import {
 import Table from "./pages/table";
 import { AppContext, createStore } from "./store/main.store";
 import Apart from "./pages/apart";
+import Favourites from "./pages/favourites";
 
 function App() {
     const stores = createStore()
@@ -17,9 +18,11 @@ function App() {
             <AppContext.Provider value={stores}>
                 <Router>
                     <header>
+                        <img src="/img/logo.png" alt=""/>
                         <ul>
                             <li><Link to="/">Главная</Link></li>
                             <li><Link to="/map">Карта</Link></li>
+                            <li><Link to="/favourites">Избранное</Link></li>
                         </ul>
                     </header>
                     <div className="content App-header">
@@ -28,7 +31,11 @@ function App() {
                         </Switch>
                         <Switch>
                             <Route exact path="/"><Table/></Route>
-                        </Switch><Switch>
+                        </Switch>
+                        <Switch>
+                            <Route exact path="/favourites"><Favourites/></Route>
+                        </Switch>
+                        <Switch>
                             <Route exact path="/aparts/:id" children={<Apart/>}/>
                         </Switch>
                     </div>

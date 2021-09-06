@@ -39,7 +39,9 @@ router.get('/favourites', (req, response) => {
         response.header('Content-Type', 'application/json').send(
             {
                 favourites: responseBuilder.buildResponse(
-                    aparts.map(ap => {return {
+                    aparts.map(ap => {
+                        return {
+
                         prices: ap.prices,
                         currency: ap.currency,
                         ...ap.get('apartId').toObject()
@@ -78,13 +80,12 @@ router.get('/:id', (req, response) => {
 
 router.post('/add-to-favourites', (req, response) => {
     (async (req, res) => {
-        debugger
         const apartId = req.body.id
         let apart = await repository.find({id: apartId})
         apart = apart[0] ? apart[0].toObject() : null
         const favourite = await favRepository.find({apartId: apart._id})
         if (favourite.length) {
-            await favRepository.delete({_id: favourite._id})
+            await favRepository.delete({_id: favourite[0]._id})
             response.sendStatus(200)
             return
         }

@@ -20,7 +20,7 @@ const prepareApart = (apart) => {
     return {
         apart,
         prepareApart: {
-            'Id': apart.price.amount + apart.price.currency,
+            'Id': apart.id,
             'Цена': apart.price.amount + apart.price.currency,
             'Адрес': apart.location.address,
             'Ссылка': (<a target='_blank' href={apart.link}>{apart.link}</a>)

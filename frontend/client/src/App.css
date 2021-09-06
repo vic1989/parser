@@ -61,13 +61,18 @@ header ul {
     list-style-type: none;
     display: flex;
 }
+header img{
+    margin-left: 10px;
+    width: 150px;
+    height: 75px;
+}
 
 header li {
     margin-right: 15px;
 
 }
 header li a{
-    color: white!important;
+    color: black!important;
 }
 
 header {
@@ -80,7 +85,7 @@ header {
     justify-content: flex-start;
     align-items: center;
     font-size: 26px;
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,60,121,1) 35%, rgba(0,212,255,1) 100%);
+    background: linear-gradient(90deg, rgba(255,255,255,1) 18%, rgba(9,9,121,1) 49%, rgba(2,0,36,1) 100%);
 }
 
 .apart-container {

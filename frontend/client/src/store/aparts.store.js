@@ -8,6 +8,11 @@ export default class ApartsStore
         return  response.data.aparts
     }
 
+    async loadFavourites (page = 1) {
+        const response = await axios.get(config.getFavoriteUrk)
+        return  response.data.favourites
+    }
+
     addToFavorites(id) {
        return   axios.post(config.favoriteUrk, {id: id})
     }

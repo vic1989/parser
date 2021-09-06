@@ -16,7 +16,7 @@ module.exports = {
     find: async (filter, columns = []) => {
         const favouriteModel = new mongoose.model('favourite', favouriteSchema)
         let apart
-        if (columns) {
+        if (columns.length) {
             apart = await favouriteModel.find(filter).select(columns).paginate(1, PER_PAGE_DEFAULT).exec();
         } else {
             apart = await favouriteModel.find(filter).populate("apartId").paginate(1, PER_PAGE_DEFAULT).exec();
