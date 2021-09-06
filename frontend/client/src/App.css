@@ -86,11 +86,12 @@ header {
 .apart-container {
     width: 80%;
     margin: 0 auto;
-    color: white;
+    color: black;
     background-color: white;
 }
 .apart-container h1{
-    text-shadow: 4px 4px 2px rgba(150, 150, 150, 1);
+    text-shadow: 4px 4px 2px rgb(239, 239, 239);
+    font-size: 2.5rem;
 }
 .apart-wrapper{
     color: black;
