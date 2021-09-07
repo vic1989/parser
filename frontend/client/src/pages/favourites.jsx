@@ -1,5 +1,4 @@
-import React, { Component, useContext, useEffect, useState } from 'react'
-import ReactDOM from 'react-dom'
+import React, { useContext, useEffect, useState } from 'react'
 import MaterialTable from 'material-table'
 import { AppContext } from "../store/main.store";
 import { useHistory } from 'react-router'

@@ -5,7 +5,6 @@ const PER_PAGE_DEFAULT = 50
 const apartSchema = require('../model/apatment')
 const aparts = mongoose.model('aparts', apartSchema)
 
-
 module.exports = {
     save: async (favouriteObj) => {
         const favouriteModelObj = new mongoose.model('favourite', favouriteSchema)
