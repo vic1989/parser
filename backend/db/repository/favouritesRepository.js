@@ -29,8 +29,5 @@ module.exports = {
             console.log(err)
         })
     },
-    update: (param, newParam,) => {
-
-    },
-
+    update: (param, newParam,) => {},
 }
