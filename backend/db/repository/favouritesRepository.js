@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-require('mongoose-pager')(mongoose);
+require('mongoose-pager')(mongoose)
 const favouriteSchema = require('../model/favourite')
 const PER_PAGE_DEFAULT = 50
 const apartSchema = require('../model/apatment')
@@ -29,5 +29,7 @@ module.exports = {
             console.log(err)
         })
     },
-    update: (param, newParam,) => {},
+    update: (param, newParam,) => {
+
+    },
 }
