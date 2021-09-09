@@ -18,16 +18,37 @@ const parse = async (config) => {
         body.apartments.forEach(appart => parseApartments(appart))
         for (const appart of apparts) {
             const i = apparts.indexOf(appart);
+            await parsePhotos(appart);
             const apart = await repository.save(appart)
             if (i === (apparts.length - 1)) {
                 console.log('onliner saved');
             }
         }
     } else {
-        console.error("\x1b[41m", 'onliner parsing err')
+        console.error("\x1b[41m", 'onliner parsing err')``
     }
 }
 const buildUrl = (params) => {
+
+}
+
+const parsePhotos = async (apart) => {
+    const response = await request({
+        url: apart.link,
+        headers: {
+            accept: "application/json, text/plain, */*"
+        }
+    })
+    const $ = cheerio.load(response.body)
+    let photos = []
+    $('.apartment-cover__thumbnail').each((i, elm) => {
+         photos.push(elm.style.backgroundImage
+             .replace(/"/g, "")
+             .replace('url(','')
+             .replace(')','')
+         )
+    })
+    apart.photos.concat(photos)
 
 }
 
