@@ -12,10 +12,9 @@ module.exports = {
             console.error(e)
         }
     },
-    upsert: (filter, update, ) => {
+    upsert: (filter, apartObj ) => {
         const apartModelObj = new mongoose.model('apart', apartSchema)
-        const entity = new apartModelObj(apartObj);
-        return apartModelObj.findOneAndUpdate(filter, update, {upsert: true})
+        return apartModelObj.findOneAndUpdate(filter, apartObj, {upsert: true, new: true, rawResult: true})
     },
     find: (filter) => {
         const apartModel = new mongoose.model('apart', apartSchema)
