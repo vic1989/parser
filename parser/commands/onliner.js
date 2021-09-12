@@ -18,6 +18,12 @@ const parse = async (config) => {
             }
         })
 
+        await parallelParse(response)
+    }
+}
+
+const parallelParse = (response) => {
+    return new Promise((resolve) => {
         const body = JSON.parse(response);
         page = body.page.current
         last = body.page.last
@@ -40,10 +46,11 @@ const parse = async (config) => {
                         child.send({type: 'shutdown'})
                         child.disconnect()
                     });
+                    resolve()
                 }
             })
         }
-    }
+    })
 }
 
 

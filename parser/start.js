@@ -9,8 +9,8 @@ const start = async (connectCallback) => {
     require("fs").readdirSync(normalizedPath).forEach(async (file) => {
         const runner = require("./commands/" + file);
         await runner.parse(config)
-       // mongoose.connection.close()
-       // process.exit(1)
+        mongoose.connection.close()
+        process.exit(1)
     });
 }
 
