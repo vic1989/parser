@@ -8,10 +8,10 @@ const connection = require('../db/connection')
 const config = require('../config/config.json')
 
 let apparts = []
+let totalAparts = 0
 
 process.on('message', (msg) => {
     if (msg.type === 'page') {
-        console.log('start worker')
         const pages = msg.pages
         run(pages)
     }
@@ -44,11 +44,12 @@ const run = async (pages) => {
                 const i = apparts.indexOf(appart);
                 // await parsePhotos(appart);
                 const apart = await repository.upsert({id: appart.id}, appart)
+                totalAparts++
                 if (i === (apparts.length - 1)) {
-                    console.log(`page ${page} parsed`)
+                    console.log(`страница ${page} прочитана`)
                 }
                 if (i === (apparts.length - 1) && j === pages.length - 1) {
-                    process.send(page)
+                    process.send(totalAparts)
                 }
             }
         } else {

@@ -48,7 +48,7 @@ router.get('/parse', (req, res) => {
     });
 
     const child = spawn('node',
-        ['./backend/routes/anotherTest.js'],
+        ['./parser/index.js','start'],
         {stdio: ['ignore', 'pipe', 'pipe']}
     )
     child.on('error', (err) => {

@@ -3,15 +3,14 @@ const mongoose = require('mongoose')
 
 const start = async (connectCallback) => {
     await connectCallback()
-    let promises = []
     let normalizedPath = require("path").join(__dirname, "commands");
 
-    require("fs").readdirSync(normalizedPath).forEach(async (file) => {
+    for (const file of require("fs").readdirSync(normalizedPath)) {
         const runner = require("./commands/" + file);
         await runner.parse(config)
-        mongoose.connection.close()
+        await mongoose.connection.close()
         process.exit(1)
-    });
+    }
 }
 
 

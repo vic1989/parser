@@ -1,7 +1,7 @@
 {
   "usedUrls": {
     "onliner": {
-      "url": "https://r.onliner.by/sdapi/ak.api/search/apartments?rent_type%5B%5D=1_room&price%5Bmin%5D=50&price%5Bmax%5D=300&currency=usd&only_owner=true&bounds%5Blb%5D%5Blat%5D=53.73977713062668&bounds%5Blb%5D%5Blong%5D=27.309951782226562&bounds%5Brt%5D%5Blat%5D=54.05576051139769&bounds%5Brt%5D%5Blong%5D=27.813949584960938&page=2&v=0.7013944595102244",
+      "url": "https://r.onliner.by/sdapi/ak.api/search/apartments?rent_type%5B%5D=1_room&rent_type%5B%5D=2_rooms&rent_type%5B%5D=3_rooms&rent_type%5B%5D=4_rooms&rent_type%5B%5D=5_rooms&rent_type%5B%5D=6_rooms&bounds%5Blb%5D%5Blat%5D=53.74424420118154&bounds%5Blb%5D%5Blong%5D=27.30033874511719&bounds%5Brt%5D%5Blat%5D=54.05132662262108&bounds%5Brt%5D%5Blong%5D=27.823562622070316&page=1&v=0.44078646794538323",
       "default_params": ""
     }
   }

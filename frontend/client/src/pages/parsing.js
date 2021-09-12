@@ -12,21 +12,46 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 let s = []
+let parsingContainer = React.createRef();
 const Parsing = () => {
 
     const classes = useStyles();
     const [text, setText] = useState([])
     const [disabled, setDisabled] = useState(false)
+
     const parse = () => {
+        let eventSource
         setDisabled(true)
+        const fireError = () => {
+            eventSource.close()
+            onMessage('Ошибка подключения к серверу')
+            setDisabled(false)
+        }
+        const timeOut = setTimeout(() => {
+            fireError()
+        }, 5000)
         setText([])
-        const eventSource = new EventSource("http://localhost:6001/api/v1/aparts/parse");
-        eventSource.onmessage = e => onMessage(JSON.parse(e.data))
         const onMessage = (msg) => {
+            clearTimeout(timeOut)
+            if (msg === 'process end') {
+                eventSource.close()
+                setDisabled(false)
+                return
+            }
             s.push(msg)
-            console.log(s)
             setText([...s])
-            // eventSource.close()
+            parsingContainer.current.scrollTop = parsingContainer.current.scrollHeight;
+        }
+        try {
+            eventSource = new EventSource("http://localhost:6001/api/v1/aparts/parse");
+            eventSource.onmessage = e => onMessage(JSON.parse(e.data))
+            eventSource.onerror = e => () => {
+                onMessage('Ошибка подключения к серверу')
+                setDisabled(false)
+            }
+        } catch (e){
+            onMessage('Ошибка подключения к серверу')
+            setDisabled(false)
         }
     }
 
@@ -37,7 +62,7 @@ const Parsing = () => {
                     Начать парсинг
                 </Button>
             </div>
-            <div className="parsing-container">{text.map(string => (
+            <div ref={parsingContainer} className="parsing-container">{text.map(string => (
                 <div>
                     {string}
                     <br/>
