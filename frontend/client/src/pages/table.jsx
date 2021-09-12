@@ -1,10 +1,11 @@
-import React, { Component, useContext, useEffect, useState } from 'react'
+import React, { Component, useContext, useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
 import MaterialTable from 'material-table'
 import { AppContext } from "../store/main.store";
 import { useHistory } from 'react-router'
 
 const Table = () => {
+    const tableRef = useRef();
     const history = useHistory()
     const {apartsStore} = useContext(AppContext)
     const [aparts, setAparts] = useState([])
@@ -38,6 +39,7 @@ const Table = () => {
     return (
         aparts && aparts.length !== 0 && <div style={{maxWidth: '100%', width: '80%'}}>
             <MaterialTable
+                tableRef={tableRef}
                 columns={[
                     {title: 'Id', field: 'id'},
                     {title: 'Адрес', field: 'location.address'},
@@ -64,6 +66,7 @@ const Table = () => {
                             await apartsStore.addToFavorites(rowData.id)
                             const aparts = await apartsStore.loadAparts()
                             setAparts(aparts)
+                            tableRef.current.onQueryChange()
                         }
                     })
                 ]}

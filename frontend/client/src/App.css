@@ -67,6 +67,24 @@ header img{
     height: 75px;
 }
 
+.arrow {
+    border: solid white;
+    border-width: 0px 10px 10px 0;
+    display: inline-block;
+    padding: 10px;
+
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+
 header li {
     margin-right: 15px;
 
