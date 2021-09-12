@@ -3,6 +3,7 @@ const router = express.Router();
 const repository = require('../db/repository/apartRepositrory')
 const favRepository = require('../db/repository/favouritesRepository')
 const responseBuilder = require('../utils/responseBuilder')
+const { spawn } = require("child_process");
 
 router.get('/', (req, response) => {
     (async () => {
@@ -32,6 +33,40 @@ router.get('/', (req, response) => {
         )
     })()
 });
+
+router.get('/parse', (req, res) => {
+    const headers = {
+        'Content-Type': 'text/event-stream',
+        'Connection': 'keep-alive',
+        'Cache-Control': 'no-cache'
+    };
+    res.writeHead(200, headers);
+
+
+    req.on('close', () => {
+        console.log(` Connection closed`);
+    });
+
+    const child = spawn('node',
+        ['./backend/routes/anotherTest.js'],
+        {stdio: ['ignore', 'pipe', 'pipe']}
+    )
+    child.on('error', (err) => {
+        res.write(`data: ${JSON.stringify(err.toString())}\n\n`)
+    })
+    child.on('close', (code) => {
+        res.write(`data: ${JSON.stringify('process end')}\n\n`)
+    })
+
+    child.stdout.on('data', (outdata) => {
+        res.write(`data: ${JSON.stringify(outdata.toString())}\n\n`)
+    })
+
+    child.stderr.on('data', (errdata) => {
+        res.write(`data: ${JSON.stringify(errdata.toString())}\n\n`)
+    })
+});
+
 
 router.get('/favourites', (req, response) => {
     (async () => {
@@ -97,5 +132,6 @@ router.post('/add-to-favourites', (req, response) => {
         response.sendStatus(200)
     })(req, response)
 });
+
 
 module.exports = router

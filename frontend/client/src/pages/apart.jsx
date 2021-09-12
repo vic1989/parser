@@ -23,7 +23,7 @@ const prepareApart = (apart) => {
             'Id': apart.id,
             'Цена': apart.price.amount + apart.price.currency,
             'Адрес': apart.location.address,
-            'Ссылка': (<a target='_blank' href={apart.link}>{apart.link}</a>)
+            'Ссылка': (<a target='_blank' rel="noreferrer" href={apart.link}>{apart.link}</a>)
         }
     }
 }
@@ -56,10 +56,12 @@ const Apart = () => {
     const {id} = useParams()
     const [apart, setApart] = useState(null)
     const {apartsStore} = useContext(AppContext)
-    useEffect(async () => {
-        const apart = await apartsStore.loadApart(id)
-        setApart(prepareApart(apart))
-    }, [])
+    useEffect(() => {
+        (async () => {
+            const apart = await apartsStore.loadApart(id)
+            setApart(prepareApart(apart))
+        })()
+    }, [apart, id])
 
     return (
         apart && <div className="apart-container">

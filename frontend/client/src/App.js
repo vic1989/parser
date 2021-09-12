@@ -10,6 +10,7 @@ import Table from "./pages/table";
 import { AppContext, createStore } from "./store/main.store";
 import Apart from "./pages/apart";
 import Favourites from "./pages/favourites";
+import Parsing from "./pages/parsing";
 
 function App() {
     const stores = createStore()
@@ -23,6 +24,7 @@ function App() {
                             <li><Link to="/">Главная</Link></li>
                             <li><Link to="/map">Карта</Link></li>
                             <li><Link to="/favourites">Избранное</Link></li>
+                            <li><Link to="/parse">Парсинг</Link></li>
                         </ul>
                     </header>
                     <div className="content App-header">
@@ -34,6 +36,9 @@ function App() {
                         </Switch>
                         <Switch>
                             <Route exact path="/favourites"><Favourites/></Route>
+                        </Switch>
+                        <Switch>
+                            <Route exact path="/parse"><Parsing/></Route>
                         </Switch>
                         <Switch>
                             <Route exact path="/aparts/:id" children={<Apart/>}/>

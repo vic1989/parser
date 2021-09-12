@@ -75,6 +75,17 @@ header li a{
     color: black!important;
 }
 
+.parsing-container{
+    width: 100%;
+    min-height: 500px;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    text-align: left;
+    padding: 10px;
+    margin: 0 auto;
+}
+
 header {
     height: 100px;
     position: absolute;

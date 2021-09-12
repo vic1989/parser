@@ -37,7 +37,6 @@ const Map = () => {
                     });
                     const a = () => {
                         marker.addListener('click', (m) => {
-                            const title = marker.getTitle()
                             if (infowindow) {
                                 infowindow.close()
                             }

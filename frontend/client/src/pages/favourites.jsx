@@ -7,9 +7,11 @@ const Favourites = () => {
     const history = useHistory()
     const {apartsStore} = useContext(AppContext)
     const [aparts, setAparts] = useState([])
-    useEffect( async () => {
-        const aparts = await apartsStore.loadFavourites()
-        setAparts(aparts)
+    useEffect( () => {
+        (async () => {
+            const aparts = await apartsStore.loadFavourites()
+            setAparts(aparts)
+        })()
     }, [])
     return (
         aparts && aparts.length !== 0 && <div style={{maxWidth: '100%', width: '80%'}}>
