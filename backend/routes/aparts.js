@@ -7,7 +7,7 @@ const { spawn } = require("child_process");
 
 router.get('/', (req, response) => {
     (async () => {
-        let aparts = await repository.find({});
+        let aparts = await repository.find(req.query.search ? {'location.address' : new RegExp(".*" + req.query.search.replace(/(\W)/g, "\\$1") + ".*", "i")} :{}, req.query.page, req.query.per_page);
         let favourites = await favRepository.find({apartId: {$in: aparts.map(ap => ap.get('_id').toString())}}, "apartId")
         favourites = favourites.map(fav => {
             return fav.toObject()['apartId'].toString()
@@ -28,7 +28,9 @@ router.get('/', (req, response) => {
                     'isFavourite',
                     '_id',
                     'link'
-                ])
+                ]),
+                page: parseInt(req.query.page),
+                total: await repository.count(req.query.search ? {'location.address' : new RegExp(".*" + req.query.search.replace(/(\W)/g, "\\$1") + ".*", "i")} :{}),
             }
         )
     })()

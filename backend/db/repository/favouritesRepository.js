@@ -12,13 +12,13 @@ module.exports = {
         const apart = await entity.save()
         return apart
     },
-    find: async (filter, columns = []) => {
+    find: async (filter, columns = [], page = 1) => {
         const favouriteModel = new mongoose.model('favourite', favouriteSchema)
         let apart
         if (columns.length) {
             apart = await favouriteModel.find(filter).select(columns).paginate(1, PER_PAGE_DEFAULT).exec();
         } else {
-            apart = await favouriteModel.find(filter).populate("apartId").paginate(1, PER_PAGE_DEFAULT).exec();
+            apart = await favouriteModel.find(filter).populate("apartId").paginate(page, PER_PAGE_DEFAULT).exec();
         }
 
         return apart

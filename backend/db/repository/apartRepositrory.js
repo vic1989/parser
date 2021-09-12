@@ -12,9 +12,13 @@ module.exports = {
             return apart
         })
     },
-    find: async (filter) => {
+    find: async (filter, page, per_page) => {
         const apartModel = new mongoose.model('apart', apartSchema)
-        return await apartModel.find(filter).paginate(1, PER_PAGE_DEFAULT).exec()
+        return await apartModel.find(filter).paginate(page, per_page || PER_PAGE_DEFAULT).exec()
+    },
+    total: async () => {
+        const apartModel = new mongoose.model('apart', apartSchema)
+        return await apartModel.count().exec()
     },
     delete: (filter) => {
         const apartModel = new mongoose.model('apart', apartSchema)
@@ -24,6 +28,10 @@ module.exports = {
     },
     update: (param, newParam, ) => {
 
+    },
+    count: async (filter) => {
+        const apartModel = new mongoose.model('apart', apartSchema)
+        return await apartModel.find(filter).count().exec()
     },
 
 }

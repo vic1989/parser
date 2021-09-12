@@ -8,38 +8,43 @@ const Table = () => {
     const history = useHistory()
     const {apartsStore} = useContext(AppContext)
     const [aparts, setAparts] = useState([])
+    let loadedAparts = []
+
+    let data = async query => {
+        if (query.search) {
+            if(query.search.length < 3){
+                return {
+                    data: loadedAparts,
+                    page: query.page - 1,
+                    totalCount: query.pageSize,
+                };
+            }
+        }
+        const response = await apartsStore.loadAparts(query.page+1, query.pageSize, query.search)
+        loadedAparts = response.aparts
+        return {
+            data: response.aparts,
+            page: response.page - 1,
+            totalCount: response.total,
+        };
+    }
+
     useEffect( async () => {
         const aparts = await apartsStore.loadAparts()
-        setAparts(aparts)
+        if(aparts.aparts.length){
+            setAparts([1])
+        }
     }, [])
     return (
         aparts && aparts.length !== 0 && <div style={{maxWidth: '100%', width: '80%'}}>
             <MaterialTable
-                localization={{
-                    pagination: {
-                        labelDisplayedRows: '{from}-{to} из {count}'
-                    },
-                    toolbar: {
-                        nRowsSelected: '{0} строк выбрано',
-                        searchPlaceholder: 'Поиск'
-                    },
-                    header: {
-                        actions: 'Действия'
-                    },
-                    body: {
-                        emptyDataSourceMessage: 'нету данных для отображения',
-                        filterRow: {
-                            filterTooltip: 'Фильтр'
-                        }
-                    }
-                }}
                 columns={[
                     {title: 'Id', field: 'id'},
                     {title: 'Адрес', field: 'location.address'},
                     {title: 'Цена', field: 'price.amount', type: 'numeric'},
                     {title: 'Валюта', field: 'price.currency'}
                 ]}
-                data={aparts}
+                data={data}
                 title="Апартаменты"
                 actions={[
                     {
