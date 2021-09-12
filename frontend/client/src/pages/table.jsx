@@ -4,6 +4,7 @@ import MaterialTable from 'material-table'
 import { AppContext } from "../store/main.store";
 import { useHistory } from 'react-router'
 
+
 const Table = () => {
     const tableRef = useRef();
     const history = useHistory()
@@ -43,7 +44,12 @@ const Table = () => {
                 columns={[
                     {title: 'Id', field: 'id'},
                     {title: 'Адрес', field: 'location.address'},
-                    {title: 'Цена', field: 'price.amount', type: 'numeric'},
+                    {title: 'Цена', field: 'price.amount', type: 'numeric',
+                        render: rowData => {
+                            return  <div><span className="material-icons MuiIcon-root MuiIcon-colorSecondary"
+                                               aria-hidden="true">trending-up</span> {rowData.price.amount}</div>
+                        }
+                    },
                     {title: 'Валюта', field: 'price.currency'}
                 ]}
                 data={data}

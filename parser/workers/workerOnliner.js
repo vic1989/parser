@@ -6,6 +6,7 @@ const fillModel = require("../utils/fillModel");
 const model = require("../models/onliner");
 const connection = require('../db/connection')
 const config = require('../config/config.json')
+const {watchFavorite} = require("../db/repository/favouritesRepository");
 
 let apparts = []
 let totalAparts = 0
@@ -44,6 +45,7 @@ const run = async (pages) => {
                 const i = apparts.indexOf(appart);
                 // await parsePhotos(appart);
                 const apart = await repository.upsert({id: appart.id}, appart)
+                watchFavorite(apart)
                 totalAparts++
                 if (i === (apparts.length - 1)) {
                     console.log(`страница ${page} прочитана`)
