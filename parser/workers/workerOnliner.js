@@ -39,7 +39,6 @@ const run = async (pages) => {
 
         const body = JSON.parse(response);
         if (body.apartments) {
-
             body.apartments.forEach(appart => parseApartments(appart))
             for (const appart of apparts) {
                 const i = apparts.indexOf(appart);
