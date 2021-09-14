@@ -1,6 +1,8 @@
 import axios from "axios";
 import { config } from "../config/config.dev";
 
+let aparts = []
+
 export default class ApartsStore {
     async loadAparts(page = 1, per_page = 50, search = '') {
         const params = {page: page, per_page: per_page, search: search}
@@ -9,7 +11,12 @@ export default class ApartsStore {
             .map(k => esc(k) + '=' + esc(params[k]))
             .join('&');
         const response = await axios.get(config.apiUrl + '?' + query)
+        aparts = response.data.aparts
         return response.data
+    }
+
+    getAparts() {
+        return aparts
     }
 
     async loadFavourites(page = 1) {

@@ -10,20 +10,23 @@ const Table = () => {
     const history = useHistory()
     const {apartsStore} = useContext(AppContext)
     const [aparts, setAparts] = useState([])
-    let loadedAparts = []
+
+    const checkPrice = () => {
+
+    }
 
     let data = async query => {
         if (query.search) {
             if(query.search.length < 3){
                 return {
-                    data: loadedAparts,
+                    data: apartsStore.getAparts(),
                     page: query.page - 1,
                     totalCount: query.pageSize,
                 };
             }
         }
-        const response = await apartsStore.loadAparts(query.page+1, query.pageSize, query.search)
-        loadedAparts = response.aparts
+        const response =
+            await apartsStore.loadAparts(query.page+1, query.pageSize, query.search)
         return {
             data: response.aparts,
             page: response.page - 1,
