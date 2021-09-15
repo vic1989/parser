@@ -43,8 +43,8 @@ const run = async (pages) => {
             for (const appart of apparts) {
                 const i = apparts.indexOf(appart);
                 // await parsePhotos(appart);
-                const apart = await repository.upsert({id: appart.id}, appart)
-                watchFavorite(apart)
+                let savedApart = await repository.upsert({id: appart.id}, appart)
+                watchFavorite(savedApart.value)
                 totalAparts++
                 if (i === (apparts.length - 1)) {
                     console.log(`страница ${page} прочитана`)

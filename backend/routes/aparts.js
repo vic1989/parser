@@ -4,10 +4,11 @@ const repository = require('../db/repository/apartRepositrory')
 const favRepository = require('../db/repository/favouritesRepository')
 const responseBuilder = require('../utils/responseBuilder')
 const { spawn } = require("child_process");
+const {markViewed} = require("../../parser/db/repository/favouritesRepository");
 
 router.get('/', (req, response) => {
     (async () => {
-        let aparts = await repository.find(req.query.search ? {'location.address' : new RegExp(".*" + req.query.search.replace(/(\W)/g, "\\$1") + ".*", "i")} :{}, req.query.page, req.query.per_page);
+        let aparts = await repository.find(req.query.search ? {'location.address' : new RegExp(".*" + req.query.search.replace(/(\W)/g, "\\$1") + ".*", "i")} :{}, req.query.page, req.query.per_page, {new: -1});
         let favourites = await favRepository.find({apartId: {$in: aparts.map(ap => ap.get('_id').toString())}}, "apartId")
         favourites = favourites.map(fav => {
             return fav.toObject()['apartId'].toString()
@@ -27,7 +28,8 @@ router.get('/', (req, response) => {
                     'id',
                     'isFavourite',
                     '_id',
-                    'link'
+                    'link',
+                    'new'
                 ]),
                 page: parseInt(req.query.page),
                 total: await repository.count(req.query.search ? {'location.address' : new RegExp(".*" + req.query.search.replace(/(\W)/g, "\\$1") + ".*", "i")} :{}),
@@ -100,6 +102,7 @@ router.get('/favourites', (req, response) => {
 router.get('/:id', (req, response) => {
     (async () => {
         const apart = await repository.find({id: req.params.id});
+        await markViewed(apart[0] || null)
         response.header('Content-Type', 'application/json').send(
             {
                 aparts: responseBuilder.buildResponse(apart, [
@@ -128,7 +131,7 @@ router.post('/add-to-favourites', (req, response) => {
         }
         const fav = await favRepository.save({
             apartId: apart._id,
-            price: [apart.price.amount],
+            prices: [apart.price.amount],
             currency: apart.price.currency
         })
         response.sendStatus(200)

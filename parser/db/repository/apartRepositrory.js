@@ -14,7 +14,7 @@ module.exports = {
     },
     upsert: async (filter, apartObj ) => {
         const apartModelObj = new mongoose.model('apart', apartSchema)
-        const apart = await apartModelObj.findOneAndUpdate(filter, apartObj, {upsert: true, new: true, rawResult: true})
+        const apart = await apartModelObj.findOneAndUpdate(filter, apartObj, {new: true, upsert: true, rawResult: true})
         return apart
     },
     find: (filter) => {
@@ -26,6 +26,9 @@ module.exports = {
         apartModel.deleteOne(filter, (err) => {
             console.log(err)
         })
+    },
+    dropCollection: async () => {
+        await mongoose.connection.db.dropCollection('aparts')
     },
     update: () => {
 

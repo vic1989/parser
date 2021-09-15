@@ -8,6 +8,7 @@ const apartSchema = new Schema({
     },
     link: String,
     photos: Array,
+    new: {type: Boolean},
     location: {
         address: String,
         latitude: String,

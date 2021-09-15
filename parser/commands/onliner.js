@@ -11,14 +11,12 @@ cluster.setupMaster({
 const childs = []
 const parse = async (config) => {
     if (cluster.isMaster) {
-
         const response = await request({
             url: config.usedUrls.onliner.url,
             headers: {
                 accept: "application/json, text/plain, */*"
             }
         })
-
         await parallelParse(response)
     }
 }
@@ -55,7 +53,6 @@ const parallelParse = (response) => {
         }
     })
 }
-
 
 module.exports = {
     parse: parse

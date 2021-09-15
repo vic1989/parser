@@ -34,6 +34,8 @@ const fillModel = (appart, model) => {
         appartObj.updated_at = appart[model.updated_at]
     }
 
+    appartObj.new = true
+
     return appartObj;
 }
 

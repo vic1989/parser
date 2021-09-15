@@ -44,9 +44,29 @@ const Table = () => {
         aparts && aparts.length !== 0 && <div style={{maxWidth: '100%', width: '80%'}}>
             <MaterialTable
                 tableRef={tableRef}
+                options={{
+                    paging: false,
+                    headerStyle: {
+                        backgroundColor: "#378FC3",
+                        color: "#FFF",
+                        fontSize: "17px",
+                        textAlign: "center",
+                        fontWeight: "bold"
+                    },
+                    rowStyle: rowData => {
+                        // if(rowData.new) {
+                        //     return {backgroundColor: 'green'};
+                        // }
+                        return {};
+                    }
+                }}
                 columns={[
                     {title: 'Id', field: 'id'},
-                    {title: 'Адрес', field: 'location.address'},
+                    {title: 'Адрес', field: 'location.address',
+                        render: rowData => {
+                            return  <div>{rowData.location.address}{rowData.new && <sup style={{color: '#57b43e'}}>new</sup>}</div>
+                        }
+                    },
                     {title: 'Цена', field: 'price.amount', type: 'numeric',
                         render: rowData => {
                             return  <div><span className="material-icons MuiIcon-root MuiIcon-colorSecondary"

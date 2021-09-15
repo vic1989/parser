@@ -13,14 +13,22 @@ module.exports = {
         return apart
     },
     watchFavorite: async (apart) => {
-        const fav = await this.find({_id: apart.get('_id')})
-        if (fav) {
-            if (fav.prices[fav.prices.length - 1] !== apart.price) {
-                fav.prices.push(apart.price)
-                return  await this.save(fav)
+        const fav = await module.exports.find({apartId: apart.get('_id')})
+        if (fav.length && fav[0].prices.length) {
+            // берет первое значение а не последнее
+            if (fav[0].prices[fav[0].prices.length - 1] !== apart.price.amount
+            ) {
+                fav[0].prices.push(apart.price.amount)
+                return await module.exports.update(fav[0])
             }
         }
         return fav
+    },
+    markViewed: async (apart) => {
+        if (apart) {
+            apart.set({new: false})
+            await module.exports.update(apart);
+        }
     },
     find: async (filter, columns = [], page = 1) => {
         const favouriteModel = new mongoose.model('favourite', favouriteSchema)
@@ -39,7 +47,7 @@ module.exports = {
             console.log(err)
         })
     },
-    update: (param, newParam,) => {
-
+    update: async (apart) => {
+        return await apart.save()
     },
 }

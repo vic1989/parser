@@ -12,9 +12,9 @@ module.exports = {
             return apart
         })
     },
-    find: async (filter, page, per_page) => {
+    find: async (filter, page, per_page, order) => {
         const apartModel = new mongoose.model('apart', apartSchema)
-        return await apartModel.find(filter).paginate(page, per_page || PER_PAGE_DEFAULT).exec()
+        return await apartModel.find(filter).sort(order).paginate(page, per_page || PER_PAGE_DEFAULT).exec()
     },
     total: async () => {
         const apartModel = new mongoose.model('apart', apartSchema)

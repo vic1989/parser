@@ -61,7 +61,7 @@ const Apart = () => {
             const apart = await apartsStore.loadApart(id)
             setApart(prepareApart(apart))
         })()
-    }, [apart, id])
+    }, [id])
 
     return (
         apart && <div className="apart-container">
