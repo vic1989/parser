@@ -15,6 +15,14 @@ export default class ApartsStore {
         return response.data
     }
 
+    async loadFormData() {
+        return await axios.get(config.formUrl)
+    }
+
+    async saveFormData(data) {
+        return await axios.post(config.formUrl, {data: data})
+    }
+
     getAparts() {
         return aparts
     }

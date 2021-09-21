@@ -1,5 +1,7 @@
 const request = require('request-promise')
 const cluster = require('cluster')
+const {build} = require("../utils/urlBuilders/onliner");
+const formRepository = require("../db/repository/formRepository");
 const totalCPUs = require('os').cpus().length - 1;
 let page = 1
 let last = 0
@@ -11,6 +13,7 @@ cluster.setupMaster({
 const childs = []
 const parse = async (config) => {
     if (cluster.isMaster) {
+        const formConfig = await formRepository.find()
         const response = await request({
             url: config.usedUrls.onliner.url,
             headers: {
@@ -34,6 +37,7 @@ const parallelParse = (response) => {
                 continue
             }
             const worker = cluster.fork();
+            worker.send({type: 'initial', url: build(formConfig.data)})
             worker.send({type: 'page', pages: s.splice(0, 3)})
             childs.push(worker)
             worker.on('message', (msg) => {

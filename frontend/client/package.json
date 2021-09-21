@@ -4,15 +4,21 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.3",
+    "@material-ui/pickers": "^3.3.10",
     "@material-ui/styles": "^4.11.4",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
+    "final-form-material-ui": "^0.3.0",
     "material-table": "^1.69.3",
+    "material-ui": "^0.20.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-final-form": "^6.5.3",
     "react-images": "^1.2.0-beta.7",
+    "react-intl": "^5.20.10",
+    "react-notifications": "^1.7.2",
     "react-photo-gallery": "^8.0.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.0.1"
@@ -40,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "final-form": "^4.20.2"
   }
 }

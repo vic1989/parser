@@ -2,9 +2,11 @@ const express = require('express');
 const router = express.Router();
 const repository = require('../db/repository/apartRepositrory')
 const favRepository = require('../db/repository/favouritesRepository')
+const formRepository = require('../db/repository/formRepository')
 const responseBuilder = require('../utils/responseBuilder')
 const { spawn } = require("child_process");
 const {markViewed} = require("../../parser/db/repository/favouritesRepository");
+const {response} = require("express");
 
 router.get('/', (req, response) => {
     (async () => {
@@ -37,6 +39,23 @@ router.get('/', (req, response) => {
         )
     })()
 });
+
+router.post('/form', (req, res) => {
+    (async () => {
+        await formRepository.save({data: req.body.data})
+        res.send({})
+    })()
+});
+
+router.get('/form', (req, res) => {
+    (async () => {
+        const data = responseBuilder.buildResponse([await formRepository.find()], [
+            'data',
+        ])[0]
+        res.send(data.data)
+    })()
+});
+
 
 router.get('/parse', (req, res) => {
     const headers = {

@@ -5,13 +5,16 @@ const cheerio = require("cheerio");
 const fillModel = require("../utils/fillModel");
 const model = require("../models/onliner");
 const connection = require('../db/connection')
-const config = require('../config/config.json')
 const {watchFavorite} = require("../db/repository/favouritesRepository");
+let URL = ''
 
 let apparts = []
 let totalAparts = 0
 
 process.on('message', (msg) => {
+    if (msg.type === 'initial') {
+       URL = msg.url
+    }
     if (msg.type === 'page') {
         const pages = msg.pages
         run(pages)
@@ -31,7 +34,7 @@ const run = async (pages) => {
         apparts = []
         const j = pages.indexOf(page);
         const response = await request({
-            url: config.usedUrls.onliner.url + `&page=${page}`,
+            url: URL + `&page=${page}`,
             headers: {
                 accept: "application/json, text/plain, */*"
             }

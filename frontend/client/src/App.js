@@ -11,6 +11,7 @@ import { AppContext, createStore } from "./store/main.store";
 import Apart from "./pages/apart";
 import Favourites from "./pages/favourites";
 import Parsing from "./pages/parsing";
+import SearchForm from "./pages/form";
 
 function App() {
     const stores = createStore()
@@ -25,6 +26,7 @@ function App() {
                             <li><Link to="/map">Карта</Link></li>
                             <li><Link to="/favourites">Избранное</Link></li>
                             <li><Link to="/parse">Парсинг</Link></li>
+                            <li><Link to="/form">Форма поиска</Link></li>
                         </ul>
                     </header>
                     <div className="content App-header">
@@ -42,6 +44,9 @@ function App() {
                         </Switch>
                         <Switch>
                             <Route exact path="/aparts/:id" children={<Apart/>}/>
+                        </Switch>
+                        <Switch>
+                            <Route exact path="/form" children={<SearchForm/>}/>
                         </Switch>
                     </div>
                 </Router>
