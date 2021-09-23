@@ -13,11 +13,17 @@ let totalAparts = 0
 
 process.on('message', (msg) => {
     if (msg.type === 'initial') {
-       URL = msg.url
+        URL = msg.url
     }
     if (msg.type === 'page') {
         const pages = msg.pages
-        run(pages)
+        if (pages.length){
+            try {
+                run(pages)
+            } catch (e) {
+                console.log(e)
+            }
+        }
     }
 
     if (msg.type === 'shutdown') {
@@ -29,7 +35,6 @@ const run = async (pages) => {
     if (!connection.isConnected()) {
         await connection.connect()
     }
-
     for (const page of pages) {
         apparts = []
         const j = pages.indexOf(page);
@@ -41,7 +46,7 @@ const run = async (pages) => {
         })
 
         const body = JSON.parse(response);
-        if (body.apartments) {
+        if (body.apartments && body.apartments.length) {
             body.apartments.forEach(appart => parseApartments(appart))
             for (const appart of apparts) {
                 const i = apparts.indexOf(appart);
@@ -53,7 +58,7 @@ const run = async (pages) => {
                     console.log(`страница ${page} прочитана`)
                 }
                 if (i === (apparts.length - 1) && j === pages.length - 1) {
-                    process.send(totalAparts)
+                    process.send({total : totalAparts, pages: pages})
                 }
             }
         } else {

@@ -17,7 +17,7 @@ const Table = () => {
 
     let data = async query => {
         if (query.search) {
-            if(query.search.length < 3){
+            if (query.search.length < 3) {
                 return {
                     data: apartsStore.getAparts(),
                     page: query.page - 1,
@@ -25,8 +25,7 @@ const Table = () => {
                 };
             }
         }
-        const response =
-            await apartsStore.loadAparts(query.page+1, query.pageSize, query.search)
+        const response = await apartsStore.loadAparts(query.page + 1, query.pageSize, query.search)
         return {
             data: response.aparts,
             page: response.page - 1,
@@ -34,9 +33,9 @@ const Table = () => {
         };
     }
 
-    useEffect( async () => {
+    useEffect(async () => {
         const aparts = await apartsStore.loadAparts()
-        if(aparts.aparts.length){
+        if (aparts.aparts.length) {
             setAparts([1])
         }
     }, [])
@@ -45,7 +44,6 @@ const Table = () => {
             <MaterialTable
                 tableRef={tableRef}
                 options={{
-                    paging: false,
                     headerStyle: {
                         backgroundColor: "#378FC3",
                         color: "#FFF",
@@ -62,15 +60,18 @@ const Table = () => {
                 }}
                 columns={[
                     {title: 'Id', field: 'id'},
-                    {title: 'Адрес', field: 'location.address',
+                    {
+                        title: 'Адрес', field: 'location.address',
                         render: rowData => {
-                            return  <div>{rowData.location.address}{rowData.new && <sup style={{color: '#57b43e'}}>new</sup>}</div>
+                            return <div>{rowData.location.address}{rowData.new &&
+                            <sup style={{color: '#57b43e'}}>new</sup>}</div>
                         }
                     },
-                    {title: 'Цена', field: 'price.amount', type: 'numeric',
+                    {
+                        title: 'Цена', field: 'price.amount', type: 'numeric',
                         render: rowData => {
-                            return  <div><span className="material-icons MuiIcon-root MuiIcon-colorSecondary"
-                                               aria-hidden="true">trending-up</span> {rowData.price.amount}</div>
+                            return <div><span className="material-icons MuiIcon-root MuiIcon-colorSecondary"
+                                              aria-hidden="true">trending-up</span> {rowData.price.amount}</div>
                         }
                     },
                     {title: 'Валюта', field: 'price.currency'}
@@ -88,7 +89,7 @@ const Table = () => {
                     rowData => ({
                         icon: 'star-border',
                         iconProps: {
-                            color:  rowData.isFavourite ? 'secondary' : "action"
+                            color: rowData.isFavourite ? 'secondary' : "action"
                         },
                         tooltip: 'Добавить В Избранное',
                         onClick: async (event, rowData) => {

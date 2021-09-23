@@ -157,7 +157,7 @@ const FormS = () => {
                                                         name="rent_type"
                                                         component={Radio}
                                                         type="radio"
-                                                        value="1_room"
+                                                        value="1_rooms"
                                                     />
                                                 }
                                             />
@@ -168,7 +168,7 @@ const FormS = () => {
                                                         name="rent_type"
                                                         component={Radio}
                                                         type="radio"
-                                                        value="2_room"
+                                                        value="2_rooms"
                                                     />
                                                 }
                                             />
@@ -179,7 +179,7 @@ const FormS = () => {
                                                         name="rent_type"
                                                         component={Radio}
                                                         type="radio"
-                                                        value="3_room"
+                                                        value="3_rooms"
                                                     />
                                                 }
                                             />
@@ -190,7 +190,7 @@ const FormS = () => {
                                                         name="rent_type"
                                                         component={Radio}
                                                         type="radio"
-                                                        value="4_room"
+                                                        value="4_rooms"
                                                     />
                                                 }
                                             />
@@ -201,7 +201,7 @@ const FormS = () => {
                                                         name="rent_type"
                                                         component={Radio}
                                                         type="radio"
-                                                        value="5_room"
+                                                        value="5_rooms"
                                                     />
                                                 }
                                             />
@@ -210,17 +210,17 @@ const FormS = () => {
                                 </Grid>
                                 <Grid item>
                                     <FormLabel component="legend">Цена</FormLabel>
-                                    <MultiRangeSlider
+                                    {initial && <MultiRangeSlider
                                         min={0}
                                         minValSet={price[0]}
                                         maxValSet={price[1]}
-                                        step={1000}
-                                        max={500000}
+                                        step={initial.apart_type === 'sell' ? 1000 : 10}
+                                        max={initial.apart_type === 'sell' ? 500000 : 10000}
                                         onChange={({ min, max }) => {
                                             setPrice([min, max])
                                         }}
 
-                                    />
+                                    />}
                                 </Grid>
 
                                 <Grid item xs={12}>

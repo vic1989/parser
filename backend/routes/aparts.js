@@ -10,7 +10,7 @@ const {response} = require("express");
 
 router.get('/', (req, response) => {
     (async () => {
-        let aparts = await repository.find(req.query.search ? {'location.address' : new RegExp(".*" + req.query.search.replace(/(\W)/g, "\\$1") + ".*", "i")} :{}, req.query.page, req.query.per_page, {new: -1});
+        let aparts = await repository.find(req.query.search ? {'location.address' : new RegExp(".*" + req.query.search.replace(/(\W)/g, "\\$1") + ".*", "i")} :{}, req.query.page, req.query.per_page, {'new': 'DESC','id': -1});
         let favourites = await favRepository.find({apartId: {$in: aparts.map(ap => ap.get('_id').toString())}}, "apartId")
         favourites = favourites.map(fav => {
             return fav.toObject()['apartId'].toString()

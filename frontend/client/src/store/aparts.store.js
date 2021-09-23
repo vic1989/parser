@@ -5,7 +5,10 @@ let aparts = []
 
 export default class ApartsStore {
     async loadAparts(page = 1, per_page = 50, search = '') {
-        const params = {page: page, per_page: per_page, search: search}
+        const params = {page: page, per_page: per_page}
+        if(search){
+            params.search = search
+        }
         const esc = encodeURIComponent;
         const query = Object.keys(params)
             .map(k => esc(k) + '=' + esc(params[k]))

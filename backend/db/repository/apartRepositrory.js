@@ -13,8 +13,10 @@ module.exports = {
         })
     },
     find: async (filter, page, per_page, order) => {
+        page = parseInt(page) === 1 ? 0 : parseInt(page)
+        per_page = parseInt(per_page)
         const apartModel = new mongoose.model('apart', apartSchema)
-        return await apartModel.find(filter).sort(order).paginate(page, per_page || PER_PAGE_DEFAULT).exec()
+        return await apartModel.find(filter).sort(order).skip(page * per_page).limit(per_page)/*.paginate(page, per_page || PER_PAGE_DEFAULT)*/.exec()
     },
     total: async () => {
         const apartModel = new mongoose.model('apart', apartSchema)
