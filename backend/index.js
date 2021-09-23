@@ -17,7 +17,7 @@ app.use(bodyParser.json())
 const start = async () => {
     await connection.connect()
     app.use('/api/v1/aparts', apartRoute);
-    app.listen(6001, console.log('listen 6000'))
+    app.listen(5000, console.log('listen 5000'))
 }
 
 start()
