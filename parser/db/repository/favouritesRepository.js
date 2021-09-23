@@ -22,7 +22,7 @@ module.exports = {
                 return await module.exports.update(fav[0])
             }
         }
-        return fav
+        return null
     },
     markViewed: async (apart) => {
         if (apart) {

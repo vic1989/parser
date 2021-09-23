@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import MaterialTable from 'material-table'
 import { AppContext } from "../store/main.store";
 import { useHistory } from 'react-router'
+import { NavLink } from 'react-router-dom';
 
 
 const Table = () => {
@@ -63,15 +64,14 @@ const Table = () => {
                     {
                         title: 'Адрес', field: 'location.address',
                         render: rowData => {
-                            return <div>{rowData.location.address}{rowData.new &&
-                            <sup style={{color: '#57b43e'}}>new</sup>}</div>
+                            return <div><NavLink to={`/aparts/${rowData.id}`}>{rowData.location.address}{rowData.new &&
+                            <sup style={{color: '#57b43e'}}>new</sup>}</NavLink> </div>
                         }
                     },
                     {
                         title: 'Цена', field: 'price.amount', type: 'numeric',
                         render: rowData => {
-                            return <div><span className="material-icons MuiIcon-root MuiIcon-colorSecondary"
-                                              aria-hidden="true">trending-up</span> {rowData.price.amount}</div>
+                            return <div><span className="material-icons">arrow_upward</span> {rowData.price.amount}</div>
                         }
                     },
                     {title: 'Валюта', field: 'price.currency'}

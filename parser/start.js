@@ -9,7 +9,7 @@ const start = async (connectCallback) => {
         const runner = require("./commands/" + file);
         await runner.parse(config)
         await mongoose.connection.close()
-        process.exit(1)
+        //process.exit(1)
     }
 }
 

@@ -2,7 +2,9 @@ const request = require('request-promise')
 const cluster = require('cluster')
 const build = require("../utils/urlBuilders/onliner");
 const formRepository = require("../db/repository/formRepository");
+const {eventEmitter} = require("../emitters/favEmitter");
 const totalCPUs = require('os').cpus().length - 1;
+const storage = require('../services/storage')
 let page = 1
 let last = 0
 let totalAparts = 0
@@ -43,6 +45,10 @@ const parallelParse = (response, link) => {
             worker.send({type: 'page', pages: s.splice(0, 3)})
             childs.push(worker)
             worker.on('message', (msg) => {
+                if (msg.favoriteToSend) {
+                    storage.addData('favoriteToSend', msg.favoriteToSend.apartId)
+                    return
+                }
                 read += msg.pages.length
                 if (read < last) {
                     totalAparts += msg.total
@@ -55,7 +61,9 @@ const parallelParse = (response, link) => {
                     });
                     console.log('парсинг онлайнера завершен')
                     console.log('Всего квартир ' + totalAparts)
-                    resolve()
+                    eventEmitter.emit('parseDone')
+                    setTimeout(() => {resolve()} , 1000)
+
                 }
             })
         }
